@@ -38,8 +38,15 @@
           </mesh>
         </geometry>
         <material>
-          <ambient>0.3 0.3 0.3 1.0</ambient>
-          <diffuse>0.3 0.3 0.3 1.0</diffuse>
+          <ambient>0.06 0.06 0.06 1.0</ambient>
+          <diffuse>0.12 0.12 0.12 1.0</diffuse>
+          <specular>0.15 0.15 0.15 1.0</specular>
+          <pbr>
+            <metal>
+              <metalness>0.0</metalness>
+              <roughness>0.65</roughness>
+            </metal>
+          </pbr>
         </material>
       </visual>
     </link>
@@ -127,8 +134,15 @@
           </mesh>
         </geometry>
         <material>
-          <ambient>0.2 0.2 0.2 1.0</ambient>
-          <diffuse>0.2 0.2 0.2 1.0</diffuse>
+          <ambient>0.08 0.08 0.08 1.0</ambient>
+          <diffuse>0.18 0.18 0.18 1.0</diffuse>
+          <specular>0.20 0.20 0.20 1.0</specular>
+          <pbr>
+            <metal>
+              <metalness>0.0</metalness>
+              <roughness>0.45</roughness>
+            </metal>
+          </pbr>
         </material>
       </visual>
 
@@ -218,8 +232,15 @@
           </mesh>
         </geometry>
         <material>
-          <ambient>0.2 0.2 0.2 1.0</ambient>
-          <diffuse>0.2 0.2 0.2 1.0</diffuse>
+          <ambient>0.015 0.015 0.015 1.0</ambient>
+          <diffuse>0.025 0.025 0.025 1.0</diffuse>
+          <specular>0.03 0.03 0.03 1.0</specular>
+          <pbr>
+            <metal>
+              <metalness>0.0</metalness>
+              <roughness>0.9</roughness>
+            </metal>
+          </pbr>
         </material>
       </visual>
     </link>
@@ -280,8 +301,15 @@
           </mesh>
         </geometry>
         <material>
-          <ambient>0.2 0.2 0.2 1.0</ambient>
-          <diffuse>0.2 0.2 0.2 1.0</diffuse>
+          <ambient>0.015 0.015 0.015 1.0</ambient>
+          <diffuse>0.025 0.025 0.025 1.0</diffuse>
+          <specular>0.03 0.03 0.03 1.0</specular>
+          <pbr>
+            <metal>
+              <metalness>0.0</metalness>
+              <roughness>0.9</roughness>
+            </metal>
+          </pbr>
         </material>
       </visual>
     </link>
@@ -373,7 +401,7 @@
       </axis>
     </joint>
 
-    <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
+    <plugin filename="ignition-gazebo-diff-drive-system" name="ignition::gazebo::systems::DiffDrive">
 
       <!-- wheels -->
       <left_joint>wheel_left_joint</left_joint>
@@ -397,7 +425,7 @@
 
     </plugin>
 
-    <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
+    <plugin filename="ignition-gazebo-joint-state-publisher-system" name="ignition::gazebo::systems::JointStatePublisher">
       <topic>joint_states</topic>
       <joint_name>wheel_left_joint</joint_name>
       <joint_name>wheel_right_joint</joint_name>

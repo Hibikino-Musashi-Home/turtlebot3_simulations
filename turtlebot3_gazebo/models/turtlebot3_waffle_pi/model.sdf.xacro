@@ -1,6 +1,47 @@
 <?xml version="1.0" ?>
-<sdf version="1.8">
-  <model name="turtlebot3_waffle">
+<sdf version="1.8" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg
+    name="lds_model"
+    default="$(optenv LDS_MODEL LDS-01)"
+  />
+
+  <xacro:property
+    name="lds_model_name"
+    value="$(arg lds_model)"
+  />
+
+  <xacro:property
+    name="lds_min_range"
+    value="${
+      0.12 if lds_model_name == 'LDS-01'
+      else 0.16 if lds_model_name == 'LDS-02'
+      else 0.05 if lds_model_name == 'LDS-03'
+      else 0.12
+    }"
+  />
+
+  <xacro:property
+    name="lds_max_range"
+    value="${
+      3.5 if lds_model_name == 'LDS-01'
+      else 8.0 if lds_model_name == 'LDS-02'
+      else 12.0 if lds_model_name == 'LDS-03'
+      else 3.5
+    }"
+  />
+
+  <xacro:property
+    name="lds_update_rate"
+    value="${
+      5.0 if lds_model_name == 'LDS-01'
+      else 5.0 if lds_model_name == 'LDS-02'
+      else 10.0 if lds_model_name == 'LDS-03'
+      else 5.0
+    }"
+  />
+
+  <model name="turtlebot3_waffle_pi">
   <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
 
     <link name="base_footprint"/>
@@ -33,7 +74,7 @@
         <pose>-0.064 0 0 0 0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://turtlebot3_common/meshes/bases/waffle_base.stl</uri>
+            <uri>model://turtlebot3_common/meshes/bases/waffle_pi_base.stl</uri>
             <scale>0.001 0.001 0.001</scale>
           </mesh>
         </geometry>
@@ -153,7 +194,7 @@
         <update_rate>10</update_rate>
         <topic>scan</topic>
         <gz_frame_id>base_scan</gz_frame_id>
-        <lidar>
+        <ray>
           <scan>
             <horizontal>
               <samples>360</samples>
@@ -163,8 +204,8 @@
             </horizontal>
           </scan>
           <range>
-            <min>0.120000</min>
-            <max>3.5</max>
+            <min>${lds_min_range}</min>
+            <max>${lds_max_range}</max>
             <resolution>0.015000</resolution>
           </range>
           <noise>
@@ -172,7 +213,7 @@
             <mean>0.0</mean>
             <stddev>0.01</stddev>
           </noise>
-        </lidar>
+        </ray>
       </sensor>
     </link>
 
@@ -181,14 +222,14 @@
       <inertial>
         <pose>0.0 0.144 0.023 -1.57 0 0</pose>
         <inertia>
-          <ixx>1.1175580e-05</ixx>
-          <ixy>-4.2369783e-11</ixy>
-          <ixz>-5.9381719e-09</ixz>
-          <iyy>1.1192413e-05</iyy>
-          <iyz>-1.4400107e-11</iyz>
-          <izz>2.0712558e-05</izz>
+          <ixx>1.8158194e-03</ixx>
+          <ixy>-9.3392e-12</ixy>
+          <ixz>1.04909e-11</ixz>
+          <iyy>3.2922126e-03</iyy>
+          <iyz>5.75694e-11</iyz>
+          <izz>1.8158194e-03</izz>
         </inertia>
-        <mass>0.1</mass>
+        <mass>2.8498940e-02</mass>
       </inertial>
 
       <collision name="wheel_left_collision">
@@ -203,8 +244,8 @@
           <!-- This friction pamareter don't contain reliable data!! -->
           <friction>
             <ode>
-              <mu>100000.0</mu>
-              <mu2>100000.0</mu2>
+              <mu>100000</mu>
+              <mu2>100000</mu2>
               <fdir1>0 0 0</fdir1>
               <slip1>0.0</slip1>
               <slip2>0.0</slip2>
@@ -250,14 +291,14 @@
       <inertial>
         <pose>0.0 -0.144 0.023 -1.57 0 0</pose>
         <inertia>
-          <ixx>1.1175580e-05</ixx>
-          <ixy>-4.2369783e-11</ixy>
-          <ixz>-5.9381719e-09</ixz>
-          <iyy>1.1192413e-05</iyy>
-          <iyz>-1.4400107e-11</iyz>
-          <izz>2.0712558e-05</izz>
+          <ixx>1.8158194e-03</ixx>
+          <ixy>-9.3392e-12</ixy>
+          <ixz>1.04909e-11</ixz>
+          <iyy>3.2922126e-03</iyy>
+          <iyz>5.75694e-11</iyz>
+          <izz>1.8158194e-03</izz>
         </inertia>
-        <mass>0.1</mass>
+        <mass>2.8498940e-02</mass>
       </inertial>
 
       <collision name="wheel_right_collision">
@@ -272,8 +313,8 @@
           <!-- This friction pamareter don't contain reliable data!! -->
           <friction>
             <ode>
-              <mu>100000.0</mu>
-              <mu2>100000.0</mu2>
+              <mu>100000</mu>
+              <mu2>100000</mu2>
               <fdir1>0 0 0</fdir1>
               <slip1>0.0</slip1>
               <slip2>0.0</slip2>
@@ -386,7 +427,7 @@
 
     <link name="camera_rgb_frame">
       <inertial>
-        <pose>0.069 -0.047 0.107 0 0 0</pose>
+        <pose>0.076 0.0 0.093 0 0 0</pose>
         <inertia>
           <ixx>0.001</ixx>
           <ixy>0.000</ixy>
@@ -398,24 +439,24 @@
         <mass>0.035</mass>
       </inertial>
 
-      <pose>0.069 -0.047 0.107 0 0 0</pose>
+      <pose>0.076 0.0 0.093 0 0 0</pose>
       <sensor name="camera" type="camera">
         <always_on>true</always_on>
         <visualize>true</visualize>
         <update_rate>30</update_rate>
         <topic>camera/image_raw</topic>
         <gz_frame_id>camera_rgb_frame</gz_frame_id>
-        <camera name="intel_realsense_r200">
+        <camera name="picam">
           <camera_info_topic>camera/camera_info</camera_info_topic>
-          <horizontal_fov>1.02974</horizontal_fov>
+          <horizontal_fov>1.085595</horizontal_fov>
           <image>
-            <width>1920</width>
-            <height>1080</height>
-            <format>R8G8B8</format>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
           </image>
           <clip>
-            <near>0.02</near>
-            <far>300</far>
+              <near>0.03</near>
+              <far>100</far>
           </clip>
           <noise>
             <type>gaussian</type>
@@ -490,7 +531,7 @@
     <joint name="camera_joint" type="fixed">
       <parent>base_link</parent>
       <child>camera_link</child>
-      <pose>0.064 -0.065 0.094 0 0 0</pose>
+      <pose>0.073 -0.011 0.084 0 0 0</pose>
       <axis>
         <xyz>0 0 1</xyz>
       </axis>
@@ -499,7 +540,7 @@
     <joint name="camera_rgb_joint" type="fixed">
       <parent>camera_link</parent>
       <child>camera_rgb_frame</child>
-      <pose>0.005 0.018 0.013 0 0 0</pose>
+      <pose>0.003 0.011 0.009 0 0 0</pose>
       <axis>
         <xyz>0 0 1</xyz>
       </axis>

@@ -21,34 +21,34 @@
 #include <memory>
 #include <vector>
 
-#include <gz/sim/System.hh>
-#include <gz/sim/Model.hh>
-#include <gz/math/Vector3.hh>
+#include <ignition/gazebo/System.hh>
+#include <ignition/gazebo/Model.hh>
+#include <ignition/math/Vector3.hh>
 
 namespace turtlebot3_gazebo
 {
 
 class Obstacle2Plugin
-  : public gz::sim::System,
-  public gz::sim::ISystemConfigure,
-  public gz::sim::ISystemPreUpdate
+  : public ignition::gazebo::System,
+  public ignition::gazebo::ISystemConfigure,
+  public ignition::gazebo::ISystemPreUpdate
 {
 public:
   Obstacle2Plugin() = default;
   ~Obstacle2Plugin() override = default;
 
   void Configure(
-    const gz::sim::Entity & entity,
+    const ignition::gazebo::Entity & entity,
     const std::shared_ptr<const sdf::Element> & sdf,
-    gz::sim::EntityComponentManager & ecm,
-    gz::sim::EventManager & eventMgr) override;
+    ignition::gazebo::EntityComponentManager & ecm,
+    ignition::gazebo::EventManager & eventMgr) override;
 
   void PreUpdate(
-    const gz::sim::UpdateInfo & info,
-    gz::sim::EntityComponentManager & ecm) override;
+    const ignition::gazebo::UpdateInfo & info,
+    ignition::gazebo::EntityComponentManager & ecm) override;
 
 private:
-  gz::sim::Model model;
+  ignition::gazebo::Model model;
   std::chrono::steady_clock::time_point startTime;
 
   std::vector<gz::math::Vector3d> waypoints;

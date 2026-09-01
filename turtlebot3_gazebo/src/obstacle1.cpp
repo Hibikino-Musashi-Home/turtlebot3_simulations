@@ -16,20 +16,20 @@
 
 #include "turtlebot3_gazebo/obstacle1.hpp"
 
-#include <gz/math/Pose3.hh>
-#include <gz/plugin/Register.hh>
+#include <ignition/math/Pose3.hh>
+#include <ignition/plugin/Register.hh>
 #include <sdf/Element.hh>
 
 namespace turtlebot3_gazebo
 {
 
 void Obstacle1Plugin::Configure(
-  const gz::sim::Entity & entity,
+  const ignition::gazebo::Entity & entity,
   const std::shared_ptr<const sdf::Element> &,
-  gz::sim::EntityComponentManager &,
-  gz::sim::EventManager &)
+  ignition::gazebo::EntityComponentManager &,
+  ignition::gazebo::EventManager &)
 {
-  this->model = gz::sim::Model(entity);
+  this->model = ignition::gazebo::Model(entity);
   this->startTime = std::chrono::steady_clock::now();
 
   this->waypoints = {
@@ -53,8 +53,8 @@ void Obstacle1Plugin::Configure(
 }
 
 void Obstacle1Plugin::PreUpdate(
-  const gz::sim::UpdateInfo &,
-  gz::sim::EntityComponentManager & ecm)
+  const ignition::gazebo::UpdateInfo &,
+  ignition::gazebo::EntityComponentManager & ecm)
 {
   if (!this->model.Valid(ecm)) {return;}
 
@@ -74,22 +74,22 @@ void Obstacle1Plugin::PreUpdate(
   if (idx >= segmentDistances.size()) {return;}
 
   double localT = (travelDist - acc) / segmentDistances[idx];
-  gz::math::Vector3d start = waypoints[idx];
-  gz::math::Vector3d end = waypoints[idx + 1];
-  gz::math::Vector3d currentPos = start + (end - start) * localT;
+  ignition::math::Vector3d start = waypoints[idx];
+  ignition::math::Vector3d end = waypoints[idx + 1];
+  ignition::math::Vector3d currentPos = start + (end - start) * localT;
 
-  gz::math::Pose3d pose(currentPos, gz::math::Quaterniond::Identity);
+  ignition::math::Pose3d pose(currentPos, ignition::math::Quaterniond::Identity);
   this->model.SetWorldPoseCmd(ecm, pose);
 }
 
 }  // namespace turtlebot3_gazebo
 
-GZ_ADD_PLUGIN(
+IGNITION_ADD_PLUGIN(
   turtlebot3_gazebo::Obstacle1Plugin,
-  gz::sim::System,
-  gz::sim::ISystemConfigure,
-  gz::sim::ISystemPreUpdate)
+  ignition::gazebo::System,
+  ignition::gazebo::ISystemConfigure,
+  ignition::gazebo::ISystemPreUpdate)
 
-GZ_ADD_PLUGIN_ALIAS(
+IGNITION_ADD_PLUGIN_ALIAS(
   turtlebot3_gazebo::Obstacle1Plugin,
   "turtlebot3_gazebo::Obstacle1Plugin")

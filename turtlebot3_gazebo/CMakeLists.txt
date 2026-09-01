@@ -26,26 +26,23 @@ find_package(nav_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(tf2 REQUIRED)
-find_package(gz_math_vendor REQUIRED)
-find_package(gz-math REQUIRED)
-find_package(gz_sim_vendor REQUIRED)
-find_package(gz-sim REQUIRED)
-find_package(gz_plugin_vendor REQUIRED)
-find_package(gz-plugin REQUIRED)
+find_package(ignition-math6 REQUIRED)
+find_package(ignition-gazebo6 REQUIRED)
+find_package(ignition-plugin1 REQUIRED)
 
 ################################################################################
 # Build
 ################################################################################
+set(IGN_GAZEBO_VER ${ignition-gazebo6_VERSION_MAJOR})
+set(IGN_MATH_VER ${ignition-math6_VERSION_MAJOR})
+
 link_directories(
   ${GAZEBO_LIBRARY_DIRS}
-  ${GZ_SIM_LIBRARY_DIRS}
 )
 
 include_directories(
   include
   ${GAZEBO_INCLUDE_DIRS}
-  ${gz_sim_vendor_INCLUDE_DIRS}
-  ${GZ_SIM_INCLUDE_DIRS}
 )
 
 set(EXEC_NAME "turtlebot3_drive")
@@ -69,8 +66,8 @@ foreach(lib ${OBSTACLE_LIBS})
   add_library(${lib} SHARED src/${lib}.cpp)
   target_link_libraries(${lib}
     PUBLIC
-    gz-sim::gz-sim
-    gz-math::gz-math
+    ignition-gazebo${IGN_GAZEBO_VER}::core
+    ignition-math${IGN_MATH_VER}::ignition-math${IGN_MATH_VER}
   )
 endforeach()
 
@@ -104,5 +101,7 @@ ament_export_dependencies(
   rclcpp
   sensor_msgs
   tf2
+  ignition_gazebo6
+  ignition_math6
 )
 ament_package()

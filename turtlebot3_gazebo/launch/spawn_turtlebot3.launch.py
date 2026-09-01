@@ -13,6 +13,9 @@
 # limitations under the License.
 
 import os
+import tempfile
+
+import xacro
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
@@ -24,13 +27,23 @@ from launch_ros.actions import Node
 def generate_launch_description():
     # Get the urdf file
     TURTLEBOT3_MODEL = os.environ['TURTLEBOT3_MODEL']
+    LDS_MODEL = os.getenv('LDS_MODEL', 'LDS-01')
     model_folder = 'turtlebot3_' + TURTLEBOT3_MODEL
-    urdf_path = os.path.join(
-        get_package_share_directory('turtlebot3_gazebo'),
-        'models',
-        model_folder,
-        'model.sdf'
+    urdf_xacro_path = os.path.join(
+        get_package_share_directory('turtlebot3_gazebo'), 'models', model_folder, 'model.sdf.xacro'
     )
+
+    urdf_path = os.path.join(tempfile.gettempdir(), model_folder + '.sdf')
+
+    xacro_doc = xacro.process_file(
+        urdf_xacro_path,
+        mappings={
+            'lds_model': LDS_MODEL,
+        },
+    )
+
+    with open(urdf_path, 'w', encoding='utf-8') as file:
+        file.write(xacro_doc.toxml())
 
     # Launch configuration variables specific to simulation
     x_pose = LaunchConfiguration('x_pose', default='0.0')
@@ -38,34 +51,37 @@ def generate_launch_description():
 
     # Declare the launch arguments
     declare_x_position_cmd = DeclareLaunchArgument(
-        'x_pose', default_value='0.0',
-        description='Specify namespace of the robot')
+        'x_pose', default_value='0.0', description='Specify namespace of the robot'
+    )
 
     declare_y_position_cmd = DeclareLaunchArgument(
-        'y_pose', default_value='0.0',
-        description='Specify namespace of the robot')
+        'y_pose', default_value='0.0', description='Specify namespace of the robot'
+    )
 
     start_gazebo_ros_spawner_cmd = Node(
-        package='ros_gz_sim',
+        package='ros_ign_gazebo',
         executable='create',
         arguments=[
-            '-name', TURTLEBOT3_MODEL,
-            '-file', urdf_path,
-            '-x', x_pose,
-            '-y', y_pose,
-            '-z', '0.01'
+            '-name',
+            TURTLEBOT3_MODEL,
+            '-file',
+            urdf_path,
+            '-x',
+            x_pose,
+            '-y',
+            y_pose,
+            '-z',
+            '0.01',
         ],
         output='screen',
     )
 
     bridge_params = os.path.join(
-        get_package_share_directory('turtlebot3_gazebo'),
-        'params',
-        model_folder+'_bridge.yaml'
+        get_package_share_directory('turtlebot3_gazebo'), 'params', model_folder + '_bridge.yaml'
     )
 
     start_gazebo_ros_bridge_cmd = Node(
-        package='ros_gz_bridge',
+        package='ros_ign_bridge',
         executable='parameter_bridge',
         arguments=[
             '--ros-args',
@@ -76,7 +92,7 @@ def generate_launch_description():
     )
 
     start_gazebo_ros_image_bridge_cmd = Node(
-        package='ros_gz_image',
+        package='ros_ign_image',
         executable='image_bridge',
         arguments=['/camera/image_raw'],
         output='screen',

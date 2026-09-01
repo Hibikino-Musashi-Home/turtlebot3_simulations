@@ -17,36 +17,34 @@
 #ifndef TURTLEBOT3_GAZEBO__OBSTACLES_HPP_
 #define TURTLEBOT3_GAZEBO__OBSTACLES_HPP_
 
+#include <ignition/gazebo/EntityComponentManager.hh>
+#include <ignition/gazebo/EventManager.hh>
+#include <ignition/gazebo/Model.hh>
+#include <ignition/gazebo/System.hh>
+#include <ignition/gazebo/components/Pose.hh>
+
 #include <chrono>
 #include <memory>
-
-#include <gz/sim/components/Pose.hh>
-#include <gz/sim/EntityComponentManager.hh>
-#include <gz/sim/EventManager.hh>
-#include <gz/sim/Model.hh>
-#include <gz/sim/System.hh>
 
 namespace turtlebot3_gazebo
 {
 
-class ObstaclesPlugin
-  : public gz::sim::System,
-  public gz::sim::ISystemConfigure,
-  public gz::sim::ISystemPreUpdate
+class ObstaclesPlugin : public ignition::gazebo::System,
+                        public ignition::gazebo::ISystemConfigure,
+                        public ignition::gazebo::ISystemPreUpdate
 {
 public:
   void Configure(
-    const gz::sim::Entity & entity,
-    const std::shared_ptr<const sdf::Element> & sdf,
-    gz::sim::EntityComponentManager & ecm,
-    gz::sim::EventManager & eventMgr) override;
+    const ignition::gazebo::Entity & entity, const std::shared_ptr<const sdf::Element> & sdf,
+    ignition::gazebo::EntityComponentManager & ecm,
+    ignition::gazebo::EventManager & eventMgr) override;
 
   void PreUpdate(
-    const gz::sim::UpdateInfo & info,
-    gz::sim::EntityComponentManager & ecm) override;
+    const ignition::gazebo::UpdateInfo & info,
+    ignition::gazebo::EntityComponentManager & ecm) override;
 
 private:
-  gz::sim::Model model{gz::sim::kNullEntity};
+  ignition::gazebo::Model model{ignition::gazebo::kNullEntity};
   std::chrono::steady_clock::time_point startTime;
 };
 

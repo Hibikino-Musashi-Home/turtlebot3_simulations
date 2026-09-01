@@ -28,7 +28,7 @@ from launch.substitutions import LaunchConfiguration
 
 def generate_launch_description():
     launch_file_dir = os.path.join(get_package_share_directory('turtlebot3_gazebo'), 'launch')
-    ros_gz_sim = get_package_share_directory('ros_gz_sim')
+    ros_ign_gazebo = get_package_share_directory('ros_ign_gazebo')
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
     x_pose = LaunchConfiguration('x_pose', default='0.0')
@@ -42,16 +42,16 @@ def generate_launch_description():
 
     gzserver_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(ros_gz_sim, 'launch', 'gz_sim.launch.py')
+            os.path.join(ros_ign_gazebo, 'launch', 'ign_gazebo.launch.py')
         ),
-        launch_arguments={'gz_args': ['-r -s -v2 ', world], 'on_exit_shutdown': 'true'}.items()
+        launch_arguments={'ign_args': ['-r -s -v2 ', world], 'on_exit_shutdown': 'true'}.items()
     )
 
     gzclient_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(ros_gz_sim, 'launch', 'gz_sim.launch.py')
+            os.path.join(ros_ign_gazebo, 'launch', 'ign_gazebo.launch.py')
         ),
-        launch_arguments={'gz_args': '-g -v2 '}.items()
+        launch_arguments={'ign_args': '-g -v2 '}.items()
     )
 
     robot_state_publisher_cmd = IncludeLaunchDescription(
@@ -72,7 +72,7 @@ def generate_launch_description():
     )
 
     set_env_vars_resources = AppendEnvironmentVariable(
-            'GZ_SIM_RESOURCE_PATH',
+            'IGN_GAZEBO_RESOURCE_PATH',
             os.path.join(
                 get_package_share_directory('turtlebot3_gazebo'),
                 'models'))
