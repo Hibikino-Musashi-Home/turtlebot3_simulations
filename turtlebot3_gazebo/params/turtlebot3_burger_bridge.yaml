@@ -39,6 +39,8 @@
   ros_type_name: "sensor_msgs/msg/Imu"
   gz_type_name: "gz.msgs.IMU"
   direction: GZ_TO_ROS
+  qos_profile: SENSOR_DATA
+  lazy: true
 
 # gz topic published by Sensors plugin
 - ros_topic_name: "scan"
@@ -46,3 +48,5 @@
   ros_type_name: "sensor_msgs/msg/LaserScan"
   gz_type_name: "gz.msgs.LaserScan"
   direction: GZ_TO_ROS
+  qos_profile: SENSOR_DATA
+  lazy: true
