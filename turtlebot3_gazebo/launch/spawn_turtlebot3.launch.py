@@ -79,6 +79,7 @@ def generate_launch_description():
         package='ros_gz_image',
         executable='image_bridge',
         arguments=['/camera/image_raw'],
+        parameters=[{'qos': 'sensor_data'}],
         output='screen',
     )
     ld = LaunchDescription()
