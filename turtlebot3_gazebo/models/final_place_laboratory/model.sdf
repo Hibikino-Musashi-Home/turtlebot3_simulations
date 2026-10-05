@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sdf version="1.8">
+  <model name="final_place_laboratory">
+    <static>true</static>
+    <link name="label">
+      <visual name="label">
+        <cast_shadows>false</cast_shadows>
+        <geometry>
+          <plane>
+            <normal>0 0 1</normal>
+            <size>1.4 0.8</size>
+          </plane>
+        </geometry>
+        <material>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <pbr>
+            <metal>
+              <albedo_map>model://final_place_laboratory/materials/textures/laboratory.png</albedo_map>
+              <metalness>0</metalness>
+              <roughness>1</roughness>
+            </metal>
+          </pbr>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

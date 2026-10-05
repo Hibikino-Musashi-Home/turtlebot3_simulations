@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='utf-8'?>
+<sdf version="1.8">
+  <world name="final_places">
+    <physics name="physics" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+    </physics>
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics" />
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands" />
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster" />
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="gz-sim-imu-system" name="gz::sim::systems::Imu" />
+    <scene>
+      <ambient>0.6 0.6 0.6 1</ambient>
+      <background>0.8 0.85 0.9 1</background>
+      <grid>false</grid>
+    </scene>
+    <light name="sun" type="directional">
+      <pose>0 0 10 0 0 0</pose>
+      <direction>-0.3 0.2 -1</direction>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <cast_shadows>false</cast_shadows>
+    </light>
+    <model name="floor">
+      <static>true</static>
+      <pose>0.000000 0.000000 -0.050000 0 0 0.000000</pose>
+      <link name="body">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>12 12 0.1</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>12 12 0.1</size>
+            </box>
+          </geometry>
+          <cast_shadows>false</cast_shadows>
+          <material>
+            <ambient>0.85 0.85 0.85 1</ambient>
+            <diffuse>0.85 0.85 0.85 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="wall_0">
+      <static>true</static>
+      <pose>-4.000000 0.000000 0.600000 0 0 0.000000</pose>
+      <link name="body">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.15 8.15 1.2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.15 8.15 1.2</size>
+            </box>
+          </geometry>
+          <cast_shadows>false</cast_shadows>
+          <material>
+            <ambient>0.55 0.55 0.55 1</ambient>
+            <diffuse>0.55 0.55 0.55 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="wall_1">
+      <static>true</static>
+      <pose>4.000000 0.000000 0.600000 0 0 0.000000</pose>
+      <link name="body">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.15 8.15 1.2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.15 8.15 1.2</size>
+            </box>
+          </geometry>
+          <cast_shadows>false</cast_shadows>
+          <material>
+            <ambient>0.55 0.55 0.55 1</ambient>
+            <diffuse>0.55 0.55 0.55 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="wall_2">
+      <static>true</static>
+      <pose>0.000000 -4.000000 0.600000 0 0 0.000000</pose>
+      <link name="body">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>8 0.15 1.2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>8 0.15 1.2</size>
+            </box>
+          </geometry>
+          <cast_shadows>false</cast_shadows>
+          <material>
+            <ambient>0.55 0.55 0.55 1</ambient>
+            <diffuse>0.55 0.55 0.55 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="wall_3">
+      <static>true</static>
+      <pose>0.000000 4.000000 0.600000 0 0 0.000000</pose>
+      <link name="body">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>8 0.15 1.2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>8 0.15 1.2</size>
+            </box>
+          </geometry>
+          <cast_shadows>false</cast_shadows>
+          <material>
+            <ambient>0.55 0.55 0.55 1</ambient>
+            <diffuse>0.55 0.55 0.55 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="wall_4">
+      <static>true</static>
+      <pose>0.000000 2.400000 0.600000 0 0 0.000000</pose>
+      <link name="body">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.15 3.2 1.2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.15 3.2 1.2</size>
+            </box>
+          </geometry>
+          <cast_shadows>false</cast_shadows>
+          <material>
+            <ambient>0.55 0.55 0.55 1</ambient>
+            <diffuse>0.55 0.55 0.55 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="wall_5">
+      <static>true</static>
+      <pose>2.400000 0.000000 0.600000 0 0 0.000000</pose>
+      <link name="body">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>3.2 0.15 1.2</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>3.2 0.15 1.2</size>
+            </box>
+          </geometry>
+          <cast_shadows>false</cast_shadows>
+          <material>
+            <ambient>0.55 0.55 0.55 1</ambient>
+            <diffuse>0.55 0.55 0.55 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <include>
+      <name>reception</name>
+      <uri>model://final_place_reception</uri>
+      <pose>-3.0 -3.0 0.008 0 0 0</pose>
+    </include>
+    <include>
+      <name>laboratory</name>
+      <uri>model://final_place_laboratory</uri>
+      <pose>-2.5 2.5 0.008 0 0 0</pose>
+    </include>
+    <include>
+      <name>meeting_room</name>
+      <uri>model://final_place_meeting_room</uri>
+      <pose>2.5 2.5 0.008 0 0 0</pose>
+    </include>
+    <include>
+      <name>charging_station</name>
+      <uri>model://final_place_charging_station</uri>
+      <pose>2.5 -2.5 0.008 0 0 0</pose>
+    </include>
+  </world>
+</sdf>
