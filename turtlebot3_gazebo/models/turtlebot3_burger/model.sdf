@@ -287,7 +287,7 @@
     </link>
 
     <link name='caster_back_link'>
-      <pose>-0.081 0 -0.004 -1.57 0 0</pose>
+      <pose>-0.081 0 -0.005 -1.57 0 0</pose>
       <inertial>
         <mass>0.005</mass>
         <inertia>
