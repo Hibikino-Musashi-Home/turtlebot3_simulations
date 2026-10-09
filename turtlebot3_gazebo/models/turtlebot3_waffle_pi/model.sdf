@@ -174,7 +174,7 @@
           <iyz>0</iyz>
           <izz>1.089e-04</izz>
         </inertia>
-        <mass>2.8498940e-02</mass>
+        <mass>0.1</mass>
       </inertial>
 
       <collision name="wheel_left_collision">
@@ -236,7 +236,7 @@
           <iyz>0</iyz>
           <izz>1.089e-04</izz>
         </inertia>
-        <mass>2.8498940e-02</mass>
+        <mass>0.1</mass>
       </inertial>
 
       <collision name="wheel_right_collision">
